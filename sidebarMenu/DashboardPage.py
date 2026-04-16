@@ -274,7 +274,7 @@ def inject_global_styles():
     .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
     /* ══════════════════════════════════════════════════════
-    CHART CARD - SINGLE CLEAN BORDER
+    CHART CARD - SINGLE CLEAN BORDER AROUND ENTIRE VISUALIZATION
     ══════════════════════════════════════════════════════ */
     [data-testid="stVerticalBlockBorderWrapper"] {
         border: none !important;
@@ -282,12 +282,12 @@ def inject_global_styles():
         padding: 0 !important;
         background: transparent !important;
         box-shadow: none !important;
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 1rem !important;
     }
     [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
         border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
         border-radius: 14px !important;
-        padding: 1rem 1rem 0.75rem !important;
+        padding: 1.25rem 1.25rem 1rem 1.25rem !important;
         background: #FFFFFF !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
         margin-bottom: 0.25rem !important;
@@ -301,10 +301,8 @@ def inject_global_styles():
         font-size: 0.97rem;
         font-weight: 600;
         color: #1E293B;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
         letter-spacing: -0.01em;
-        padding-bottom: 4px;
-        border-bottom: 1px solid #E2E8F0;
     }
 
     /* ══════════════════════════════════════════════════════
