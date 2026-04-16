@@ -70,8 +70,16 @@ header, [data-testid="stHeader"] {
     padding-right: 2rem !important;
 }
 
-[data-testid="stSidebar"] * { color: #FFFFFF !important; }
-[data-testid="stSidebar"] .stMarkdown { color: #FFFFFF !important; }
+/* Fixed sidebar text colors */
+[data-testid="stSidebar"] {
+    color: #FFFFFF !important;
+}
+[data-testid="stSidebar"] .stMarkdown,
+[data-testid="stSidebar"] .stMarkdown p,
+[data-testid="stSidebar"] .stMarkdown span,
+[data-testid="stSidebar"] .stMarkdown div {
+    color: #FFFFFF !important;
+}
 [data-testid="stSidebarNav"],
 section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display: none !important; }
 
@@ -108,7 +116,9 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 }
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active p,
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active span,
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active div { color: #2e167e !important; }
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active div { 
+    color: #2e167e !important; 
+}
 
 .jobie-sidebar-footer {
     margin-top: 1.35rem; padding: 0.95rem 0.9rem; border-radius: 16px;
@@ -127,12 +137,34 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 .stat-label  { font-size: .8rem; color: rgba(255,255,255,.9) !important; font-weight: 500; margin-top: 2px; text-transform: uppercase; letter-spacing: .06em; }
 .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
+/* Chart cards - single clean border around entire visualization */
 [data-testid="stVerticalBlockBorderWrapper"] {
-    border: 1px solid rgba(0,0,0,.14) !important; border-radius: 12px !important;
-    padding: 1rem 1rem .75rem !important; background: #FFFFFF !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,.05) !important; margin-bottom: .25rem !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    margin-bottom: 1rem !important;
 }
-.chart-card-title { font-size: .97rem; font-weight: 600; color: #1E293B; margin-bottom: 4px; letter-spacing: -.01em; }
+[data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
+    border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
+    border-radius: 14px !important;
+    padding: 1.25rem 1.25rem 1rem 1.25rem !important;
+    background: #FFFFFF !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    margin-bottom: 0.25rem !important;
+    transition: box-shadow 0.2s ease;
+}
+[data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"]:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+.chart-card-title { 
+    font-size: 0.97rem; 
+    font-weight: 600; 
+    color: #1E293B; 
+    margin-bottom: 12px; 
+    letter-spacing: -0.01em; 
+}
 
 [data-testid="stMain"] div[data-testid="stButton"] > button,
 [data-testid="stMain"] [data-testid="stBaseButton-secondary"] {
@@ -217,7 +249,7 @@ with st.sidebar:
     </script>
     """, height=0, scrolling=False)
 
-    # footer
+    # footer with fixed text colors
     components.html("""
     <style>
         body { margin: 0; padding: 0; background: transparent; }
@@ -231,7 +263,7 @@ with st.sidebar:
         .footer-title {
             font-size: 0.68rem;
             font-weight: 800;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.6) !important;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-bottom: 0.8rem;
@@ -244,21 +276,27 @@ with st.sidebar:
             padding: 0.55rem 0.85rem;
             margin-bottom: 0.45rem;
             border-left: 3px solid rgba(255,255,255,0.35);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .dev-card:last-child { margin-bottom: 0; }
         .dev-name {
             font-size: 0.80rem;
             font-weight: 700;
-            color: #FFFFFF;
+            color: #FFFFFF !important;
             font-family: sans-serif;
             line-height: 1.3;
+            white-space: normal !important;
+            word-break: break-word;
         }
         .dev-id {
             font-size: 0.66rem;
-            color: rgba(255,255,255,0.50);
+            color: rgba(255,255,255,0.50) !important;
             margin-top: 2px;
             font-family: sans-serif;
             letter-spacing: 0.03em;
+            white-space: normal !important;
+            word-break: break-word;
         }
     </style>
     <div class="footer-wrap">
@@ -276,7 +314,7 @@ with st.sidebar:
             <div class="dev-id">Student ID: 0137513</div>
         </div>
     </div>
-    """, height=230)
+    """, height=300)
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  MAIN PAGE RENDERING
