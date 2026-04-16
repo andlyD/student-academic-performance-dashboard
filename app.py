@@ -303,7 +303,7 @@ with st.sidebar:
             <div class="dev-id">Student ID: 0137513</div>
         </div>
     </div>
-    """, height=280) 
+    """, height=300) 
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  MAIN PAGE RENDERING
