@@ -251,7 +251,7 @@ def inject_global_styles():
     .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
     /* ══════════════════════════════════════════════════════
-    CHART CARD - SINGLE CLEAN BORDER AROUND ENTIRE VISUALIZATION
+    CHART CARD - SINGLE CLEAN BORDER AROUND ENTIRE VISUALIZATION INCLUDING BUTTON
     ══════════════════════════════════════════════════════ */
     [data-testid="stVerticalBlockBorderWrapper"] {
         border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
@@ -272,12 +272,13 @@ def inject_global_styles():
         background: transparent !important;
         box-shadow: none !important;
     }
-    .chart-card-title { 
-        font-size: 0.97rem; 
-        font-weight: 600; 
-        color: #1E293B; 
-        margin-bottom: 12px; 
-        letter-spacing: -0.01em; 
+
+    .chart-card-title {
+        font-size: 0.97rem;
+        font-weight: 600;
+        color: #1E293B;
+        margin-bottom: 12px;
+        letter-spacing: -0.01em;
     }
 
     /* ══════════════════════════════════════════════════════
