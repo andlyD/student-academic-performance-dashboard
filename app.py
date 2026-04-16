@@ -265,6 +265,8 @@ with st.sidebar:
             padding: 0.55rem 0.85rem;
             margin-bottom: 0.45rem;
             border-left: 3px solid rgba(255,255,255,0.35);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .dev-card:last-child { margin-bottom: 0; }
         .dev-name {
@@ -273,6 +275,8 @@ with st.sidebar:
             color: #FFFFFF !important;
             font-family: sans-serif;
             line-height: 1.3;
+            white-space: normal !important;
+            word-break: break-word;
         }
         .dev-id {
             font-size: 0.66rem;
@@ -280,6 +284,8 @@ with st.sidebar:
             margin-top: 2px;
             font-family: sans-serif;
             letter-spacing: 0.03em;
+            white-space: normal !important;
+            word-break: break-word;
         }
     </style>
     <div class="footer-wrap">
@@ -297,7 +303,7 @@ with st.sidebar:
             <div class="dev-id">Student ID: 0137513</div>
         </div>
     </div>
-    """, height=230)
+    """, height=260)  # Increased height from 230 to 260
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  MAIN PAGE RENDERING
