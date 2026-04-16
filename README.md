@@ -34,28 +34,29 @@ Built with:
 
 <!-- Replace with your actual screenshots after deployment -->
 <p align="center">
-  <img width="1200" alt="Main Dashboard" src="https://via.placeholder.com/1200x700?text=Main+Dashboard+Screenshot">
+  <img width="1920" height="1080" alt="Main Dashboard" src="https://github.com/user-attachments/assets/752f13eb-7739-45c4-930b-ba7aa0e710cb" />
 </p>
 
 ### 📋 Overview
 > A snapshot of the survey methodology, data cleaning process, and respondent demographics.
 
 <p align="center">
-  <img width="1200" alt="Overview Page" src="https://via.placeholder.com/1200x700?text=Overview+Page+Screenshot">
+  <img width="1920" height="1080" alt="Overview Page" src="https://github.com/user-attachments/assets/1d3b08ae-5af3-49fd-945e-fcec49241e00" />
+
 </p>
 
 ### 📈 Performance Analysis
 > Deep-dive analytics with inline filters, comparison cards, and 5 rich visualisations.
 
 <p align="center">
-  <img width="1200" alt="Performance Analysis" src="https://via.placeholder.com/1200x700?text=Performance+Analysis+Screenshot">
+  <img width="1920" height="1080" alt="Performance Analysis" src="https://github.com/user-attachments/assets/ac54d2d3-e774-43de-9087-9b9dc7cf3908" />
 </p>
 
 ### 🙋 Know Yourself
 > A personalised self-assessment quiz that classifies your study profile and gives tailored recommendations.
 
 <p align="center">
-  <img width="1200" alt="Know Yourself" src="https://via.placeholder.com/1200x700?text=Know+Yourself+Screenshot">
+  <img width="1920" height="1080" alt="Know Yourself" src="https://github.com/user-attachments/assets/34b6d7da-6ff6-4e5b-a6d1-ab6784bd8db3" />
 </p>
 
 ---
