@@ -82,8 +82,8 @@ def inject_global_styles():
 
     /* Keep collapsed sidebar logically present */
     [data-testid="stSidebar"][aria-expanded="false"] {
-        min-width: 82px !important;
-        max-width: 82px !important;
+        min-width: 0px !important;
+        max-width: 0px !important;
     }
 
     /* Main page auto-resizes */
