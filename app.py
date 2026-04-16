@@ -137,7 +137,7 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 .stat-label  { font-size: .8rem; color: rgba(255,255,255,.9) !important; font-weight: 500; margin-top: 2px; text-transform: uppercase; letter-spacing: .06em; }
 .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
-/* Chart cards - single clean border around entire visualization INCLUDING button */
+/* Chart cards - single clean border around entire visualization */
 [data-testid="stVerticalBlockBorderWrapper"] {
     border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
     border-radius: 14px !important;
@@ -149,13 +149,6 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 }
 [data-testid="stVerticalBlockBorderWrapper"]:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-}
-[data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
 }
 .chart-card-title { 
     font-size: 0.97rem; 
