@@ -137,23 +137,36 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 .stat-label  { font-size: .8rem; color: rgba(255,255,255,.9) !important; font-weight: 500; margin-top: 2px; text-transform: uppercase; letter-spacing: .06em; }
 .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
-/* Fixed double border issue */
+/* Fixed double border issue - with single clean border for charts */
 [data-testid="stVerticalBlockBorderWrapper"] {
     border: none !important;
     border-radius: 0 !important;
     padding: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
+    margin-bottom: 0.5rem !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
-    border: 1px solid rgba(0,0,0,.14) !important;
-    border-radius: 12px !important;
-    padding: 1rem 1rem .75rem !important;
+    border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
+    border-radius: 14px !important;
+    padding: 1rem 1rem 0.75rem !important;
     background: #FFFFFF !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,.05) !important;
-    margin-bottom: .25rem !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    margin-bottom: 0.25rem !important;
+    transition: box-shadow 0.2s ease;
 }
-.chart-card-title { font-size: .97rem; font-weight: 600; color: #1E293B; margin-bottom: 4px; letter-spacing: -.01em; }
+[data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"]:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+.chart-card-title { 
+    font-size: 0.97rem; 
+    font-weight: 600; 
+    color: #1E293B; 
+    margin-bottom: 8px; 
+    letter-spacing: -0.01em; 
+    padding-bottom: 4px;
+    border-bottom: 1px solid #E2E8F0;
+}
 
 [data-testid="stMain"] div[data-testid="stButton"] > button,
 [data-testid="stMain"] [data-testid="stBaseButton-secondary"] {
@@ -303,7 +316,7 @@ with st.sidebar:
             <div class="dev-id">Student ID: 0137513</div>
         </div>
     </div>
-    """, height=300) 
+    """, height=260)  # Increased height from 230 to 260
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  MAIN PAGE RENDERING
