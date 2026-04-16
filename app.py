@@ -137,30 +137,50 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 .stat-label  { font-size: .8rem; color: rgba(255,255,255,.9) !important; font-weight: 500; margin-top: 2px; text-transform: uppercase; letter-spacing: .06em; }
 .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
-/* Chart cards - border on columns */
-div[data-testid="column"] {
-    border-radius: 14px !important;
-    padding: 1.25rem 1.25rem 1rem 1.25rem !important;
+/* 🌟 PROFESSIONAL CARDS - Visible Border */
+div.chart-card,
+.chart-card {
     background: #FFFFFF !important;
-    outline: 1px solid rgba(0, 0, 0, 0.08) !important;
-    outline-offset: -1px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.05) !important;
-    margin: 0.5rem !important;
-    transition: box-shadow 0.25s ease, transform 0.2s ease;
+    border-radius: 12px !important;
+    padding: 1.5rem 1.5rem 1.25rem 1.5rem !important;
+    margin: 0.75rem 0 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 
+                0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    transition: all 0.25s cubic-bezier(0.2, 0, 0, 1) !important;
+    width: 100% !important;
+    border: 1.5px solid #CBD5E1 !important;
+    position: relative !important;
+    overflow: visible !important;
+    display: block !important;
+    box-sizing: border-box !important;
 }
-div[data-testid="column"]:hover {
-    outline: 1px solid rgba(0, 0, 0, 0.15) !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08) !important;
-    transform: translateY(-2px);
+
+div.chart-card:hover,
+.chart-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10), 
+                0 2px 6px rgba(0, 0, 0, 0.05) !important;
+    border-color: #94A3B8 !important;
+    transform: translateY(-3px) !important;
 }
+
+div.chart-card::before,
+.chart-card::before,
+div.chart-card::after,
+.chart-card::after {
+    display: none !important;
+    content: none !important;
+}
+
+div.chart-card-title,
 .chart-card-title { 
-    font-size: 0.97rem; 
-    font-weight: 600; 
-    color: #1E293B; 
-    margin-bottom: 12px; 
-    letter-spacing: -0.01em; 
-    padding-bottom: 8px;
-    border-bottom: 1px solid #E2E8F0;
+    font-size: 1rem !important; 
+    font-weight: 600 !important; 
+    color: #1E293B !important;
+    margin-bottom: 16px !important; 
+    letter-spacing: -0.01em !important; 
+    padding-bottom: 10px !important;
+    border-bottom: 1px solid #CBD5E1 !important;
+    display: block !important;
 }
 
 [data-testid="stMain"] div[data-testid="stButton"] > button,
