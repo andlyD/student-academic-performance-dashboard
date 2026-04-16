@@ -253,24 +253,16 @@ def inject_global_styles():
     /* ══════════════════════════════════════════════════════
     CHART CARD - SINGLE CLEAN BORDER AROUND ENTIRE VISUALIZATION
     ══════════════════════════════════════════════════════ */
-    [data-testid="stVerticalBlockBorderWrapper"] {
-        border: none !important;
-        border-radius: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        margin-bottom: 1rem !important;
-    }
-    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
-        border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
+    div[data-testid="column"] {
+        border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
         border-radius: 14px !important;
         padding: 1.25rem 1.25rem 1rem 1.25rem !important;
         background: #FFFFFF !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-        margin-bottom: 0.25rem !important;
+        margin: 0.5rem !important;
         transition: box-shadow 0.2s ease;
     }
-    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"]:hover {
+    div[data-testid="column"]:hover {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
     }
 
@@ -1331,7 +1323,6 @@ def render_dashboard():
 
     # Chart 1 — Study Hours by CGPA ───────────────────────────────────────────
     with r1c1:
-        with st.container(border=True):
             st.markdown('<div class="chart-card-title">📚 Study Hours by CGPA</div>', unsafe_allow_html=True)
             avg_hours = df.groupby('cgpa_label')['study_hours_daily'].mean().reindex(CGPA_ORDER)
             counts    = df['cgpa_label'].value_counts().reindex(CGPA_ORDER)
@@ -1360,7 +1351,6 @@ def render_dashboard():
 
     # Chart 2 — Study Challenges ───────────────────────────────────────────────
     with r1c2:
-        with st.container(border=True):
             st.markdown('<div class="chart-card-title">🎯 Study Challenges</div>', unsafe_allow_html=True)
             challenge_cols   = [c for c in df.columns if c.startswith('Study Challenge Category_')]
             challenge_counts = df[challenge_cols].sum().sort_values(ascending=False)
@@ -1396,7 +1386,6 @@ def render_dashboard():
 
     # Chart 3 — CGPA vs Social Media ──────────────────────────────────────────
     with r1c3:
-        with st.container(border=True):
             st.markdown('<div class="chart-card-title">📉 CGPA vs Social Media</div>', unsafe_allow_html=True)
             sm_labels  = ['< 1 hr','1-2 hrs','3-4 hrs','5+ hrs']
             sm_numeric = [0.5, 1.5, 3.5, 5.0]
@@ -1456,7 +1445,6 @@ def render_dashboard():
 
     # Chart 4 — Scatter ───────────────────────────────────────────────────────
     with r2c1:
-        with st.container(border=True):
             st.markdown('<div class="chart-card-title">📱 Social Media vs Coursework Score</div>', unsafe_allow_html=True)
             np.random.seed(42)
             plot_df = df[['social_media_hours','coursework_score','cgpa_label','study_hours_daily']].copy()
@@ -1500,7 +1488,6 @@ def render_dashboard():
 
     # Chart 5 — 3D ─────────────────────────────────────────────────────────────
     with r2c2:
-        with st.container(border=True):
             st.markdown('<div class="chart-card-title">🌐 Study × Social Media × Coursework (Optional for data enthusiasts!)</div>', unsafe_allow_html=True)
             np.random.seed(42)
             s3d = df[['study_hours_daily','social_media_hours','coursework_score',
