@@ -139,16 +139,16 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 
 /* Chart cards - border on columns */
 div[data-testid="column"] {
-    border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
     border-radius: 14px !important;
     padding: 1.25rem 1.25rem 1rem 1.25rem !important;
     background: #FFFFFF !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
     margin: 0.5rem !important;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.25s ease, transform 0.2s ease;
 }
 div[data-testid="column"]:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.10) !important;
+    transform: translateY(-2px);
 }
 .chart-card-title { 
     font-size: 0.97rem; 
@@ -156,6 +156,8 @@ div[data-testid="column"]:hover {
     color: #1E293B; 
     margin-bottom: 12px; 
     letter-spacing: -0.01em; 
+    padding-bottom: 8px;
+    border-bottom: 1px solid #E2E8F0;
 }
 
 [data-testid="stMain"] div[data-testid="stButton"] > button,
