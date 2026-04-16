@@ -251,7 +251,7 @@ def inject_global_styles():
     .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
     /* ══════════════════════════════════════════════════════
-    CHART CARD - SINGLE CLEAN BORDER AROUND ENTIRE VISUALIZATION
+    CHART CARD - SINGLE CLEAN BORDER AROUND ENTIRE VISUALIZATION INCLUDING BUTTON
     ══════════════════════════════════════════════════════ */
     [data-testid="stVerticalBlockBorderWrapper"] {
         border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
@@ -265,17 +265,20 @@ def inject_global_styles():
     [data-testid="stVerticalBlockBorderWrapper"]:hover {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
     }
-    /* Override any inner borders */
-    [data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlock"] {
+    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
         border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
         box-shadow: none !important;
     }
-    .chart-card-title { 
-        font-size: 0.97rem; 
-        font-weight: 600; 
-        color: #1E293B; 
-        margin-bottom: 12px; 
-        letter-spacing: -0.01em; 
+
+    .chart-card-title {
+        font-size: 0.97rem;
+        font-weight: 600;
+        color: #1E293B;
+        margin-bottom: 12px;
+        letter-spacing: -0.01em;
     }
 
     /* ══════════════════════════════════════════════════════
