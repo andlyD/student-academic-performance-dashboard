@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import os
 
 from sidebarMenu.Overview import show_overview
 from sidebarMenu.KnowYourself import main as show_know_yourself
@@ -23,87 +22,64 @@ if "current_page" not in st.session_state:
     st.session_state.current_page = "Dashboard"
 
 # ══════════════════════════════════════════════════════════════════════════════
-# GLOBAL STYLES (FIXED)
+# GLOBAL STYLES (SCOPED FIX)
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
-
-html, body, [class*="css"] {
-    font-family: 'DM Sans', sans-serif;
-}
-
-/* Hide default menu */
-#MainMenu, footer { visibility: hidden; }
 
 /* MAIN BACKGROUND */
 [data-testid="stAppViewContainer"] > .main {
     background: #f6f7fb !important;
 }
 
-/* ───────── SIDEBAR FIX (CRITICAL) ───────── */
+/* SIDEBAR BACKGROUND */
 [data-testid="stSidebar"],
 [data-testid="stSidebar"] > div,
 [data-testid="stSidebar"] > div:first-child {
     background: linear-gradient(180deg, #4b1fcf 0%, #3d18b4 100%) !important;
 }
 
-/* Sidebar width */
+/* SIDEBAR WIDTH */
 [data-testid="stSidebar"][aria-expanded="true"] {
     min-width: 265px !important;
-    max-width: 265px !important;
 }
-
 [data-testid="stSidebar"][aria-expanded="false"] {
     min-width: 82px !important;
-    max-width: 82px !important;
 }
 
-/* FORCE ALL SIDEBAR TEXT WHITE */
-[data-testid="stSidebar"],
-[data-testid="stSidebar"] *,
-[data-testid="stSidebar"] button,
-[data-testid="stSidebar"] button * {
-    color: #FFFFFF !important;
-}
-
-/* Remove default nav */
-[data-testid="stSidebarNav"] {
-    display: none !important;
-}
-
-/* NAV BUTTONS */
-[data-testid="stSidebar"] button {
+/* ONLY STYLE SIDEBAR BUTTONS (IMPORTANT FIX) */
+section[data-testid="stSidebar"] div.stButton > button {
     width: 100% !important;
     border-radius: 12px !important;
     padding: 0.8rem 1rem !important;
     background: rgba(255,255,255,0.15) !important;
     border: 1px solid rgba(255,255,255,0.25) !important;
     margin-bottom: 0.4rem !important;
+    color: white !important;
     transition: 0.2s ease !important;
 }
 
-/* Hover */
-[data-testid="stSidebar"] button:hover {
+/* TEXT INSIDE SIDEBAR BUTTON */
+section[data-testid="stSidebar"] div.stButton > button * {
+    color: white !important;
+}
+
+/* HOVER */
+section[data-testid="stSidebar"] div.stButton > button:hover {
     background: rgba(255,255,255,0.3) !important;
     transform: translateX(3px);
 }
 
-/* Active button */
-[data-testid="stSidebar"] button.nav-btn-active {
-    background: #FFFFFF !important;
+/* ACTIVE */
+section[data-testid="stSidebar"] div.stButton > button.nav-btn-active {
+    background: white !important;
 }
 
-[data-testid="stSidebar"] button.nav-btn-active * {
+section[data-testid="stSidebar"] div.stButton > button.nav-btn-active * {
     color: #2e167e !important;
     font-weight: 700 !important;
 }
 
-/* CONTENT WIDTH */
-.block-container {
-    max-width: 1200px !important;
-    margin: auto !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
@@ -112,7 +88,7 @@ html, body, [class*="css"] {
 # ══════════════════════════════════════════════════════════════════════════════
 with st.sidebar:
 
-    st.markdown('<div style="font-size:0.75rem; opacity:0.7;">MAIN MENU</div>', unsafe_allow_html=True)
+    st.markdown("### Main Menu")
 
     nav_items = [
         ("🏠 Main Dashboard", "Dashboard"),
@@ -122,22 +98,47 @@ with st.sidebar:
     ]
 
     for label, page in nav_items:
-        if st.button(label):
+        if st.button(label, key=page):
             st.session_state.current_page = page
             st.rerun()
 
-    # Highlight active button (JS)
+    # ACTIVE BUTTON SCRIPT (FIXED MATCHING)
     components.html(f"""
     <script>
-    const buttons = window.parent.document.querySelectorAll('[data-testid="stSidebar"] button');
+    const buttons = window.parent.document.querySelectorAll(
+        'section[data-testid="stSidebar"] div.stButton > button'
+    );
+
     buttons.forEach(btn => {{
         btn.classList.remove('nav-btn-active');
-        if (btn.innerText.includes("{st.session_state.current_page}")) {{
+        if (btn.innerText.trim().includes("{st.session_state.current_page}")) {{
             btn.classList.add('nav-btn-active');
         }}
     }});
     </script>
     """, height=0)
+
+    # ═══════════════════════════════════
+    # YOUR TEAM FOOTER (RESTORED)
+    # ═══════════════════════════════════
+    st.markdown("""
+    <div style="
+        margin-top:20px;
+        padding:12px;
+        border-radius:12px;
+        background:rgba(255,255,255,0.1);
+        color:white;
+        font-size:13px;
+    ">
+    <b>👨‍💻 Dashboard Developers</b><br><br>
+    Andly Danny Anafiah<br>
+    <span style="opacity:0.7;">0137461</span><br><br>
+    Bayu Fatwa Negara Alias<br>
+    <span style="opacity:0.7;">0137466</span><br><br>
+    Muhamad Roslan Abbas<br>
+    <span style="opacity:0.7;">0137513</span>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # MAIN CONTENT
