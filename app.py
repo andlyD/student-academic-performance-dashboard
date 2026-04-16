@@ -70,7 +70,14 @@ header, [data-testid="stHeader"] {
     padding-right: 2rem !important;
 }
 
-[data-testid="stSidebar"] * { color: #FFFFFF !important; }
+[data-testid="stSidebar"],
+[data-testid="stSidebar"] *,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] div,
+[data-testid="stSidebar"] label {
+    color: #FFFFFF !important;
+}
 [data-testid="stSidebar"] .stMarkdown { color: #FFFFFF !important; }
 [data-testid="stSidebarNav"],
 section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display: none !important; }
@@ -92,24 +99,56 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
     letter-spacing: 0.08em; text-transform: uppercase; margin: 0.55rem 0 0.65rem 0.3rem;
 }
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] {
-    display: flex !important; align-items: center !important; justify-content: flex-start !important;
-    width: 100% !important; min-height: 48px !important; padding: 0.82rem 1rem !important;
-    border-radius: 14px !important; font-size: 0.93rem !important; font-weight: 500 !important;
-    color: rgba(255,255,255,0.92) !important; background: transparent !important;
-    border: none !important; box-shadow: none !important; cursor: pointer !important;
-    text-align: left !important; margin-bottom: 0.38rem !important; transition: all 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    min-height: 48px !important;
+    padding: 0.82rem 1rem !important;
+    border-radius: 14px !important;
+    font-size: 0.93rem !important;
+    font-weight: 600 !important;
+    color: #FFFFFF !important;
+    background: rgba(255,255,255,0.15) !important;
+    border: 1px solid rgba(255,255,255,0.30) !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    text-align: left !important;
+    margin-bottom: 0.38rem !important;
+    transition: all 0.2s ease !important;
 }
+
+/* Force white on ALL child elements — this is what Streamlit Cloud overrides */
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] *,
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] p,
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] span,
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] div {
+    color: #FFFFFF !important;
+}
+
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"]:hover {
-    background: rgba(255,255,255,0.12) !important; color: #FFFFFF !important; transform: translateX(3px) !important;
+    background: rgba(255,255,255,0.28) !important;
+    color: #FFFFFF !important;
+    transform: translateX(3px) !important;
 }
+
+/* Active/selected button */
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active {
-    background: #FFFFFF !important; color: #2e167e !important; font-weight: 700 !important;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.14) !important; transform: translateX(2px) !important;
+    background: #FFFFFF !important;
+    color: #2e167e !important;
+    font-weight: 700 !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.14) !important;
+    transform: translateX(2px) !important;
+    border: none !important;
 }
+
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active *,
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active p,
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active span,
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active div { color: #2e167e !important; }
-
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active div {
+    color: #2e167e !important;
+}
+            
 .jobie-sidebar-footer {
     margin-top: 1.35rem; padding: 0.95rem 0.9rem; border-radius: 16px;
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08);
