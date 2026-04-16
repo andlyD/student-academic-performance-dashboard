@@ -137,25 +137,17 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 .stat-label  { font-size: .8rem; color: rgba(255,255,255,.9) !important; font-weight: 500; margin-top: 2px; text-transform: uppercase; letter-spacing: .06em; }
 .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
-/* Chart cards - single clean border around entire visualization */
-[data-testid="stVerticalBlockBorderWrapper"] {
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    margin-bottom: 1rem !important;
-}
-[data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
-    border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
+/* Chart cards - border on columns */
+div[data-testid="column"] {
+    border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
     border-radius: 14px !important;
     padding: 1.25rem 1.25rem 1rem 1.25rem !important;
     background: #FFFFFF !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-    margin-bottom: 0.25rem !important;
+    margin: 0.5rem !important;
     transition: box-shadow 0.2s ease;
 }
-[data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"]:hover {
+div[data-testid="column"]:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
 }
 .chart-card-title { 
