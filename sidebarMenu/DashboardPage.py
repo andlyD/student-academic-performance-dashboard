@@ -60,7 +60,6 @@ def inject_global_styles():
         background: #3d18b4 !important;
     }
 
-
     /* ══════════════════════════════════════════════════════
     JOBIE-STYLE COLLAPSIBLE SIDEBAR
     ══════════════════════════════════════════════════════ */
@@ -120,12 +119,14 @@ def inject_global_styles():
         background: #3d18b4 !important;
     }
 
-    /* Text color */
-    [data-testid="stSidebar"] * {
+    /* Fixed sidebar text colors */
+    [data-testid="stSidebar"] {
         color: #FFFFFF !important;
     }
-
-    [data-testid="stSidebar"] .stMarkdown {
+    [data-testid="stSidebar"] .stMarkdown,
+    [data-testid="stSidebar"] .stMarkdown p,
+    [data-testid="stSidebar"] .stMarkdown span,
+    [data-testid="stSidebar"] .stMarkdown div {
         color: #FFFFFF !important;
     }
 
@@ -249,6 +250,7 @@ def inject_global_styles():
         line-height: 1.55;
         color: rgba(255,255,255,0.76) !important;
     }
+
     /* ══════════════════════════════════════════════════════
     KPI STAT CARDS
     ══════════════════════════════════════════════════════ */
@@ -272,9 +274,16 @@ def inject_global_styles():
     .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
     /* ══════════════════════════════════════════════════════
-    CHART CARD
+    CHART CARD - FIXED DOUBLE BORDER
     ══════════════════════════════════════════════════════ */
     [data-testid="stVerticalBlockBorderWrapper"] {
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
         border: 1px solid rgba(0,0,0,.14) !important;
         border-radius: 12px !important;
         padding: 1rem 1rem .75rem !important;
