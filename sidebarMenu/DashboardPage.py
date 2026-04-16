@@ -274,7 +274,7 @@ def inject_global_styles():
     .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
     /* ══════════════════════════════════════════════════════
-    CHART CARD - FIXED DOUBLE BORDER
+    CHART CARD - SINGLE CLEAN BORDER
     ══════════════════════════════════════════════════════ */
     [data-testid="stVerticalBlockBorderWrapper"] {
         border: none !important;
@@ -282,22 +282,29 @@ def inject_global_styles():
         padding: 0 !important;
         background: transparent !important;
         box-shadow: none !important;
+        margin-bottom: 0.5rem !important;
     }
     [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
-        border: 1px solid rgba(0,0,0,.14) !important;
-        border-radius: 12px !important;
-        padding: 1rem 1rem .75rem !important;
+        border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
+        border-radius: 14px !important;
+        padding: 1rem 1rem 0.75rem !important;
         background: #FFFFFF !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,.05) !important;
-        margin-bottom: .25rem !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        margin-bottom: 0.25rem !important;
+        transition: box-shadow 0.2s ease;
+    }
+    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"]:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
     }
 
     .chart-card-title {
-        font-size: .97rem;
+        font-size: 0.97rem;
         font-weight: 600;
         color: #1E293B;
-        margin-bottom: 4px;
-        letter-spacing: -.01em;
+        margin-bottom: 8px;
+        letter-spacing: -0.01em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #E2E8F0;
     }
 
     /* ══════════════════════════════════════════════════════
