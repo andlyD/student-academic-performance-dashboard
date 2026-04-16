@@ -251,34 +251,53 @@ def inject_global_styles():
     .stat-accent { width: 32px; height: 3px; border-radius: 2px; margin-top: .75rem; background: rgba(255,255,255,.5) !important; }
 
     /* ══════════════════════════════════════════════════════
-    CHART CARD - SINGLE CLEAN BORDER AROUND ENTIRE VISUALIZATION
+    🌟 FLOATING GLASS CARDS - Custom Wrapper Class
     ══════════════════════════════════════════════════════ */
-    div[data-testid="column"] {
-        border-radius: 14px !important;
-        padding: 1.25rem 1.25rem 1rem 1.25rem !important;
+    /* 🌟 PROFESSIONAL CARDS - Visible Border */
+    div.chart-card,
+    .chart-card {
         background: #FFFFFF !important;
-        outline: 1px solid rgba(0, 0, 0, 0.08) !important;
-        outline-offset: -1px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.05) !important;
-        margin: 0.5rem !important;
-        transition: box-shadow 0.25s ease, transform 0.2s ease;
-    }
-    div[data-testid="column"]:hover {
-        outline: 1px solid rgba(0, 0, 0, 0.15) !important;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08) !important;
-        transform: translateY(-2px);
-    }
-
-    .chart-card-title {
-        font-size: 0.97rem; 
-        font-weight: 600; 
-        color: #1E293B; 
-        margin-bottom: 12px; 
-        letter-spacing: -0.01em; 
-        padding-bottom: 8px;
-        border-bottom: 1px solid #E2E8F0;
+        border-radius: 12px !important;
+        padding: 1.5rem 1.5rem 1.25rem 1.5rem !important;
+        margin: 0.75rem 0 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 
+                    0 1px 3px rgba(0, 0, 0, 0.04) !important;
+        transition: all 0.25s cubic-bezier(0.2, 0, 0, 1) !important;
+        width: 100% !important;
+        border: 1.5px solid #CBD5E1 !important;
+        position: relative !important;
+        overflow: visible !important;
+        display: block !important;
+        box-sizing: border-box !important;
     }
 
+    div.chart-card:hover,
+    .chart-card:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10), 
+                    0 2px 6px rgba(0, 0, 0, 0.05) !important;
+        border-color: #94A3B8 !important;
+        transform: translateY(-3px) !important;
+    }
+
+    div.chart-card::before,
+    .chart-card::before,
+    div.chart-card::after,
+    .chart-card::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    div.chart-card-title,
+    .chart-card-title { 
+        font-size: 1rem !important; 
+        font-weight: 600 !important; 
+        color: #1E293B !important;
+        margin-bottom: 16px !important; 
+        letter-spacing: -0.01em !important; 
+        padding-bottom: 10px !important;
+        border-bottom: 1px solid #CBD5E1 !important;
+        display: block !important;
+    }
     /* ══════════════════════════════════════════════════════
     EXPLORE BUTTON  (main content area only — NOT sidebar)
     ══════════════════════════════════════════════════════ */
@@ -368,8 +387,6 @@ PA_CGPA_COLORS = {
     'Low (2.00–3.00)':  '#FF6B6B',
 }
 PA_CGPA_ORDER = ['Low (2.00–3.00)', 'Mid (3.00–3.49)', 'High (3.50–4.00)']
-
-
 
 def render_study_hours_page():
     inject_global_styles() 
@@ -690,6 +707,8 @@ def render_study_hours_page():
     col_chart, col_text = st.columns([3, 2], vertical_alignment="center")
 
     with col_chart:
+        st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+        st.markdown('<div class="chart-card-title">📚 Average Daily Study Hours by CGPA</div>', unsafe_allow_html=True)
         avg_hours = df.groupby('cgpa_label')['study_hours_daily'].mean().reindex(PA_CGPA_ORDER)
         counts    = df['cgpa_label'].value_counts().reindex(PA_CGPA_ORDER)
 
@@ -737,6 +756,7 @@ def render_study_hours_page():
             height=520, bargap=0.3
         )
         st.plotly_chart(fig_bar, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with col_text:
         st.markdown("""
@@ -802,6 +822,8 @@ def render_study_hours_page():
         """, unsafe_allow_html=True)
 
     with col_c2:
+        st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+        st.markdown('<div class="chart-card-title">🎯 Study Challenge Distribution</div>', unsafe_allow_html=True)
         challenge_cols   = [c for c in df.columns if c.startswith('Study Challenge Category_')]
         challenge_counts = df[challenge_cols].sum().sort_values(ascending=False)
         challenge_labels = [c.replace('Study Challenge Category_', '') for c in challenge_counts.index]
@@ -854,6 +876,7 @@ def render_study_hours_page():
             margin=dict(t=80, b=20, l=30, r=180)
         )
         st.plotly_chart(fig_pie, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="insight-box">💡 <b>Key Insight:</b> Most students face multiple overlapping challenges. Tackling the top challenge first creates a positive ripple effect on the others.</div>', unsafe_allow_html=True)
 
@@ -867,6 +890,8 @@ def render_study_hours_page():
     col_s3, col_t3 = st.columns([3, 2], vertical_alignment="center")
 
     with col_s3:
+        st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+        st.markdown('<div class="chart-card-title">📱 Social Media Hours vs Coursework Score</div>', unsafe_allow_html=True)
         np.random.seed(42)
         plot_df = df[['social_media_hours', 'coursework_score', 'cgpa_label', 'study_hours_daily']].copy()
         plot_df['sm_j']  = plot_df['social_media_hours'] + np.random.normal(0, 0.1, len(plot_df))
@@ -932,6 +957,7 @@ def render_study_hours_page():
             height=580, margin=dict(t=80, b=100)
         )
         st.plotly_chart(fig_scatter, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with col_t3:
         st.markdown("""
@@ -989,6 +1015,8 @@ def render_study_hours_page():
         """, unsafe_allow_html=True)
 
     with col_s4:
+        st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+        st.markdown('<div class="chart-card-title">📉 Average CGPA by Social Media Usage</div>', unsafe_allow_html=True)
         sm_labels  = ['< 1 hour', '1–2 hours', '3–4 hours', '5+ hours']
         sm_numeric = [0.5, 1.5, 3.5, 5.0]
 
@@ -1061,6 +1089,7 @@ def render_study_hours_page():
             ))
 
         st.plotly_chart(fig_line, use_container_width=True, key="chart_line")
+        st.markdown('</div>', unsafe_allow_html=True)
         
     st.markdown('<div class="insight-box">💡 <b>Key Insight:</b> The CGPA drop from &lt; 1 hr to 5+ hrs of social media per day is statistically meaningful. Managing screen time is one of the most actionable levers students have.</div>', unsafe_allow_html=True)
 
@@ -1084,6 +1113,9 @@ def render_study_hours_page():
                 </p>
             </div>
         """, unsafe_allow_html=True)
+
+        st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+        st.markdown('<div class="chart-card-title">🌐 3D View: Study Hours × Social Media × Coursework</div>', unsafe_allow_html=True)
 
         np.random.seed(42)
         s3d = df[['study_hours_daily', 'social_media_hours', 'coursework_score',
@@ -1149,8 +1181,8 @@ def render_study_hours_page():
             margin=dict(t=100, b=20)
         )
 
-        
         st.plotly_chart(fig_3d, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown('<div class="insight-box">💡 <b>Critical Insight:</b> High-CGPA students (blue) cluster in the high study / low social-media zone, while Low-CGPA students (red) occupy the opposite corner. The 3D view makes this separation unmistakable.</div>', unsafe_allow_html=True)
 
@@ -1188,7 +1220,6 @@ def render_study_hours_page():
         </div>
     </div>
     """, unsafe_allow_html=True)
-
 
 # Sidebar navigation is handled entirely by app.py
 
@@ -1303,7 +1334,6 @@ def render_dashboard():
             </div>
         """, unsafe_allow_html=True)
     
-    
     st.markdown("""
     <div style="
         background: #FFFFFF;
@@ -1328,119 +1358,208 @@ def render_dashboard():
 
     # Chart 1 — Study Hours by CGPA ───────────────────────────────────────────
     with r1c1:
-            st.markdown('<div class="chart-card-title">📚 Study Hours by CGPA</div>', unsafe_allow_html=True)
-            avg_hours = df.groupby('cgpa_label')['study_hours_daily'].mean().reindex(CGPA_ORDER)
-            counts    = df['cgpa_label'].value_counts().reindex(CGPA_ORDER)
-            fig_bar   = go.Figure()
-            for cat, val, n in zip(CGPA_ORDER, avg_hours, counts):
-                fig_bar.add_trace(go.Bar(
-                    x=[cat], y=[val],
-                    marker=dict(color=CGPA_COLORS[cat], line=dict(color='white', width=2)),
-                    text=[f'<b>{val:.2f}h</b>'], textposition='outside',
-                    textfont=dict(size=11, family='DM Sans'),
-                    hovertemplate=f'<b>%{{x}}</b><br>Avg Study: {val:.2f} hrs<br>n = {n}<extra></extra>',
-                    name=cat,
-                ))
-            fig_bar.update_layout(
-                xaxis=dict(title=dict(text='<b>CGPA Category</b>', font=dict(size=10,color='#1A237E')),
-                           showgrid=False, tickfont=dict(size=9,color='#2C3E50'), tickangle=-10),
-                yaxis=dict(title=dict(text='<b>Avg Study Hours</b>', font=dict(size=10,color='#1A237E')),
-                           showgrid=True, gridwidth=1.5, gridcolor='rgba(100,100,100,0.5)',
-                           tickfont=dict(size=9,color='#2C3E50'), range=[0, float(avg_hours.max())*1.3]),
-                plot_bgcolor='rgba(250,250,250,0.5)', paper_bgcolor='rgba(0,0,0,0)',
-                hovermode='x unified', hoverlabel=dict(bgcolor='white',font_size=11),
-                showlegend=False, height=TOP_H, bargap=0.35, margin=dict(t=20,b=38,l=25,r=10)
-            )
-            st.plotly_chart(fig_bar, use_container_width=True, key="chart_bar")
-            explore_button("explore_bar", "Performance Analysis")
+        # Title outside
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 12px 12px 0 0;
+            padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+            margin: 0.75rem 0 0 0;
+            border: 1.5px solid #CBD5E1;
+            border-bottom: none;
+        ">
+            <div style="
+                font-size: 1rem; 
+                font-weight: 600; 
+                color: #1E293B;
+                margin-bottom: 16px; 
+                letter-spacing: -0.01em; 
+                padding-bottom: 10px;
+                border-bottom: 1px solid #CBD5E1;
+            ">📚 Study Hours by CGPA</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        avg_hours = df.groupby('cgpa_label')['study_hours_daily'].mean().reindex(CGPA_ORDER)
+        counts    = df['cgpa_label'].value_counts().reindex(CGPA_ORDER)
+        fig_bar   = go.Figure()
+        for cat, val, n in zip(CGPA_ORDER, avg_hours, counts):
+            fig_bar.add_trace(go.Bar(
+                x=[cat], y=[val],
+                marker=dict(color=CGPA_COLORS[cat], line=dict(color='white', width=2)),
+                text=[f'<b>{val:.2f}h</b>'], textposition='outside',
+                textfont=dict(size=11, family='DM Sans'),
+                hovertemplate=f'<b>%{{x}}</b><br>Avg Study: {val:.2f} hrs<br>n = {n}<extra></extra>',
+                name=cat,
+            ))
+        fig_bar.update_layout(
+            xaxis=dict(title=dict(text='<b>CGPA Category</b>', font=dict(size=10,color='#1A237E')),
+                       showgrid=False, tickfont=dict(size=9,color='#2C3E50'), tickangle=-10),
+            yaxis=dict(title=dict(text='<b>Avg Study Hours</b>', font=dict(size=10,color='#1A237E')),
+                       showgrid=True, gridwidth=1.5, gridcolor='rgba(100,100,100,0.5)',
+                       tickfont=dict(size=9,color='#2C3E50'), range=[0, float(avg_hours.max())*1.3]),
+            plot_bgcolor='rgba(250,250,250,0.5)', paper_bgcolor='rgba(0,0,0,0)',
+            hovermode='x unified', hoverlabel=dict(bgcolor='white',font_size=11),
+            showlegend=False, height=TOP_H, bargap=0.35, margin=dict(t=20,b=38,l=25,r=10)
+        )
+        st.plotly_chart(fig_bar, use_container_width=True, key="chart_bar")
+        
+        # Button and bottom border
+        explore_button("explore_bar", "Performance Analysis")
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 0 0 12px 12px;
+            padding: 0 1.5rem 1.25rem 1.5rem;
+            margin: 0 0 0.75rem 0;
+            border: 1.5px solid #CBD5E1;
+            border-top: none;
+        "></div>
+        """, unsafe_allow_html=True)
 
     # Chart 2 — Study Challenges ───────────────────────────────────────────────
     with r1c2:
-            st.markdown('<div class="chart-card-title">🎯 Study Challenges</div>', unsafe_allow_html=True)
-            challenge_cols   = [c for c in df.columns if c.startswith('Study Challenge Category_')]
-            challenge_counts = df[challenge_cols].sum().sort_values(ascending=False)
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 12px 12px 0 0;
+            padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+            margin: 0.75rem 0 0 0;
+            border: 1.5px solid #CBD5E1;
+            border-bottom: none;
+        ">
+            <div style="
+                font-size: 1rem; 
+                font-weight: 600; 
+                color: #1E293B;
+                margin-bottom: 16px; 
+                letter-spacing: -0.01em; 
+                padding-bottom: 10px;
+                border-bottom: 1px solid #CBD5E1;
+            ">🎯 Study Challenges</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        challenge_cols   = [c for c in df.columns if c.startswith('Study Challenge Category_')]
+        challenge_counts = df[challenge_cols].sum().sort_values(ascending=False)
+        challenge_labels = [c.replace('Study Challenge Category_', '') for c in challenge_counts.index]
+        no_challenge = (df[challenge_cols].sum(axis=1) == 0).sum()
+        if no_challenge > 0:
+            challenge_counts['Academic Workload'] = no_challenge
+            challenge_counts = challenge_counts.sort_values(ascending=False)
             challenge_labels = [c.replace('Study Challenge Category_', '') for c in challenge_counts.index]
-            no_challenge = (df[challenge_cols].sum(axis=1) == 0).sum()
-            if no_challenge > 0:
-                challenge_counts['Academic Workload'] = no_challenge
-                challenge_counts = challenge_counts.sort_values(ascending=False)
-                challenge_labels = [c.replace('Study Challenge Category_', '') for c in challenge_counts.index]
-            pie_colors = ['#4D96FF','#FFD93D','#6BCB77','#FF6B9D','#9D84B7','#FF5722','#00BCD4','#E91E63']
-            fig_pie = go.Figure(data=[go.Pie(
-                labels=challenge_labels, values=challenge_counts.values, hole=0.44,
-                marker=dict(colors=pie_colors[:len(challenge_labels)], line=dict(color='white',width=2)),
-                textinfo='percent', textfont=dict(size=8,family='DM Sans'),
-                hovertemplate='<b>%{label}</b><br>Students: %{value}<br>%{percent}<extra></extra>',
-                pull=[0.04 if i == 0 else 0 for i in range(len(challenge_labels))], rotation=140
-            )])
-            fig_pie.add_annotation(
-                text=f'<b>{int(challenge_counts.sum())}</b><br><span style="font-size:9px">Total</span>',
-                x=0.5, y=0.5, font=dict(size=14,color='#1A237E',family='DM Sans'), showarrow=False
-            )
-            fig_pie.update_layout(
-                showlegend=True,
-                legend=dict(orientation='v',yanchor='middle',y=0.5,xanchor='left',x=1.01,
-                            font=dict(size=8),bgcolor='rgba(255,255,255,0.85)',
-                            bordercolor='#E2E8F0',borderwidth=1),
-                paper_bgcolor='rgba(0,0,0,0)', height=TOP_H,
-                hoverlabel=dict(bgcolor='white',font_size=11),
-                margin=dict(t=20,b=18,l=10,r=105)
-            )
-            st.plotly_chart(fig_pie, use_container_width=True, key="chart_pie")
-            explore_button("explore_pie", "Performance Analysis")
+        pie_colors = ['#4D96FF','#FFD93D','#6BCB77','#FF6B9D','#9D84B7','#FF5722','#00BCD4','#E91E63']
+        fig_pie = go.Figure(data=[go.Pie(
+            labels=challenge_labels, values=challenge_counts.values, hole=0.44,
+            marker=dict(colors=pie_colors[:len(challenge_labels)], line=dict(color='white',width=2)),
+            textinfo='percent', textfont=dict(size=8,family='DM Sans'),
+            hovertemplate='<b>%{label}</b><br>Students: %{value}<br>%{percent}<extra></extra>',
+            pull=[0.04 if i == 0 else 0 for i in range(len(challenge_labels))], rotation=140
+        )])
+        fig_pie.add_annotation(
+            text=f'<b>{int(challenge_counts.sum())}</b><br><span style="font-size:9px">Total</span>',
+            x=0.5, y=0.5, font=dict(size=14,color='#1A237E',family='DM Sans'), showarrow=False
+        )
+        fig_pie.update_layout(
+            showlegend=True,
+            legend=dict(orientation='v',yanchor='middle',y=0.5,xanchor='left',x=1.01,
+                        font=dict(size=8),bgcolor='rgba(255,255,255,0.85)',
+                        bordercolor='#E2E8F0',borderwidth=1),
+            paper_bgcolor='rgba(0,0,0,0)', height=TOP_H,
+            hoverlabel=dict(bgcolor='white',font_size=11),
+            margin=dict(t=20,b=18,l=10,r=105)
+        )
+        st.plotly_chart(fig_pie, use_container_width=True, key="chart_pie")
+        
+        explore_button("explore_pie", "Performance Analysis")
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 0 0 12px 12px;
+            padding: 0 1.5rem 1.25rem 1.5rem;
+            margin: 0 0 0.75rem 0;
+            border: 1.5px solid #CBD5E1;
+            border-top: none;
+        "></div>
+        """, unsafe_allow_html=True)
 
     # Chart 3 — CGPA vs Social Media ──────────────────────────────────────────
     with r1c3:
-            st.markdown('<div class="chart-card-title">📉 CGPA vs Social Media</div>', unsafe_allow_html=True)
-            sm_labels  = ['< 1 hr','1-2 hrs','3-4 hrs','5+ hrs']
-            sm_numeric = [0.5, 1.5, 3.5, 5.0]
-            avg_cgpa_line = df.groupby('social_media_hours')['cgpa'].mean().reindex(sm_numeric).fillna(0)
-            std_cgpa      = df.groupby('social_media_hours')['cgpa'].std().reindex(sm_numeric).fillna(0)
-            fig_line = go.Figure()
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 12px 12px 0 0;
+            padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+            margin: 0.75rem 0 0 0;
+            border: 1.5px solid #CBD5E1;
+            border-bottom: none;
+        ">
+            <div style="
+                font-size: 1rem; 
+                font-weight: 600; 
+                color: #1E293B;
+                margin-bottom: 16px; 
+                letter-spacing: -0.01em; 
+                padding-bottom: 10px;
+                border-bottom: 1px solid #CBD5E1;
+            ">📉 CGPA vs Social Media</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        sm_labels  = ['< 1 hr','1-2 hrs','3-4 hrs','5+ hrs']
+        sm_numeric = [0.5, 1.5, 3.5, 5.0]
+        avg_cgpa_line = df.groupby('social_media_hours')['cgpa'].mean().reindex(sm_numeric).fillna(0)
+        std_cgpa      = df.groupby('social_media_hours')['cgpa'].std().reindex(sm_numeric).fillna(0)
+        fig_line = go.Figure()
+        fig_line.add_trace(go.Scatter(
+            x=sm_labels+sm_labels[::-1],
+            y=list(avg_cgpa_line.values+std_cgpa.values)+list((avg_cgpa_line.values-std_cgpa.values)[::-1]),
+            fill='toself', fillcolor='rgba(77,150,255,0.12)',
+            line=dict(color='rgba(255,255,255,0)'), name='± 1 SD', hoverinfo='skip'
+        ))
+        fig_line.add_trace(go.Scatter(
+            x=sm_labels, y=avg_cgpa_line.values,
+            mode='lines+markers+text', line=dict(color='#1565C0',width=3),
+            marker=dict(size=10,color='#1565C0',line=dict(color='white',width=2)),
+            text=[f'<b>{v:.2f}</b>' for v in avg_cgpa_line.values],
+            textposition='top center', textfont=dict(size=9,family='DM Sans',color='#1A237E'),
+            name='Avg CGPA', hovertemplate='<b>%{x}</b><br>Avg CGPA: %{y:.2f}<extra></extra>'
+        ))
+        fig_line.update_layout(
+            xaxis=dict(title=dict(text='<b>Social Media hrs/day</b>',font=dict(size=10,color='#1A237E')),
+                       showgrid=True,gridwidth=1.5,gridcolor='rgba(100,100,100,0.5)',
+                       tickfont=dict(size=9,color='#2C3E50')),
+            yaxis=dict(title=dict(text='<b>Avg CGPA</b>',font=dict(size=10,color='#1A237E')),
+                       showgrid=True,gridwidth=1.5,gridcolor='rgba(100,100,100,0.5)',
+                       tickfont=dict(size=9,color='#2C3E50'),range=[2.4,4.25]),
+            plot_bgcolor='rgba(250,250,250,0.5)',paper_bgcolor='rgba(0,0,0,0)',
+            hovermode='x unified',hoverlabel=dict(bgcolor='white',font_size=11),
+            legend=dict(orientation='h',yanchor='top',y=0.99,xanchor='center',x=0.5,
+                        bgcolor='rgba(255,255,255,0.85)',bordercolor='#E2E8F0',borderwidth=1,font=dict(size=9)),
+            height=TOP_H, margin=dict(t=20,b=38,l=10,r=10)
+        )
+        if avg_cgpa_line.any():
+            z_line = np.polyfit(sm_numeric, avg_cgpa_line.values, 1)
+            p_line = np.poly1d(z_line)
+            y_trend = [p_line(x) for x in sm_numeric]
             fig_line.add_trace(go.Scatter(
-                x=sm_labels+sm_labels[::-1],
-                y=list(avg_cgpa_line.values+std_cgpa.values)+list((avg_cgpa_line.values-std_cgpa.values)[::-1]),
-                fill='toself', fillcolor='rgba(77,150,255,0.12)',
-                line=dict(color='rgba(255,255,255,0)'), name='± 1 SD', hoverinfo='skip'
+                x=sm_labels, y=y_trend, mode='lines',
+                line=dict(color='rgba(220,50,50,0.55)', width=2, dash='dot'),
+                name=f'Trend (slope: {z_line[0]:.3f})', hoverinfo='skip'
             ))
-            fig_line.add_trace(go.Scatter(
-                x=sm_labels, y=avg_cgpa_line.values,
-                mode='lines+markers+text', line=dict(color='#1565C0',width=3),
-                marker=dict(size=10,color='#1565C0',line=dict(color='white',width=2)),
-                text=[f'<b>{v:.2f}</b>' for v in avg_cgpa_line.values],
-                textposition='top center', textfont=dict(size=9,family='DM Sans',color='#1A237E'),
-                name='Avg CGPA', hovertemplate='<b>%{x}</b><br>Avg CGPA: %{y:.2f}<extra></extra>'
-            ))
-            fig_line.update_layout(
-                xaxis=dict(title=dict(text='<b>Social Media hrs/day</b>',font=dict(size=10,color='#1A237E')),
-                           showgrid=True,gridwidth=1.5,gridcolor='rgba(100,100,100,0.5)',
-                           tickfont=dict(size=9,color='#2C3E50')),
-                yaxis=dict(title=dict(text='<b>Avg CGPA</b>',font=dict(size=10,color='#1A237E')),
-                           showgrid=True,gridwidth=1.5,gridcolor='rgba(100,100,100,0.5)',
-                           tickfont=dict(size=9,color='#2C3E50'),range=[2.4,4.25]),
-                plot_bgcolor='rgba(250,250,250,0.5)',paper_bgcolor='rgba(0,0,0,0)',
-                hovermode='x unified',hoverlabel=dict(bgcolor='white',font_size=11),
-                legend=dict(orientation='h',yanchor='top',y=0.99,xanchor='center',x=0.5,
-                            bgcolor='rgba(255,255,255,0.85)',bordercolor='#E2E8F0',borderwidth=1,font=dict(size=9)),
-                height=TOP_H, margin=dict(t=20,b=38,l=10,r=10)
-            )
-            
-            # Regression trendline
-            if avg_cgpa_line.any():
-                z_line = np.polyfit(sm_numeric, avg_cgpa_line.values, 1)
-                p_line = np.poly1d(z_line)
-                y_trend = [p_line(x) for x in sm_numeric]
-                fig_line.add_trace(go.Scatter(
-                    x=sm_labels,
-                    y=y_trend,
-                    mode='lines',
-                    line=dict(color='rgba(220,50,50,0.55)', width=2, dash='dot'),
-                    name=f'Trend (slope: {z_line[0]:.3f})',
-                    hoverinfo='skip'
-                ))
-
-            st.plotly_chart(fig_line, use_container_width=True, key="chart_line")
-            explore_button("explore_line", "Performance Analysis")
+        st.plotly_chart(fig_line, use_container_width=True, key="chart_line")
+        
+        explore_button("explore_line", "Performance Analysis")
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 0 0 12px 12px;
+            padding: 0 1.5rem 1.25rem 1.5rem;
+            margin: 0 0 0.75rem 0;
+            border: 1.5px solid #CBD5E1;
+            border-top: none;
+        "></div>
+        """, unsafe_allow_html=True)
 
     st.markdown("<div class='chart-row-divider'></div>", unsafe_allow_html=True)
 
@@ -1450,90 +1569,152 @@ def render_dashboard():
 
     # Chart 4 — Scatter ───────────────────────────────────────────────────────
     with r2c1:
-            st.markdown('<div class="chart-card-title">📱 Social Media vs Coursework Score</div>', unsafe_allow_html=True)
-            np.random.seed(42)
-            plot_df = df[['social_media_hours','coursework_score','cgpa_label','study_hours_daily']].copy()
-            plot_df['sm_j'] = plot_df['social_media_hours'] + np.random.normal(0,0.1,len(plot_df))
-            plot_df['cw_j'] = plot_df['coursework_score']   + np.random.normal(0,1.2,len(plot_df))
-            fig_scatter = go.Figure()
-            for lbl in CGPA_ORDER:
-                sub = plot_df[plot_df['cgpa_label']==lbl]
-                fig_scatter.add_trace(go.Scatter(
-                    x=sub['sm_j'], y=sub['cw_j'], mode='markers',
-                    marker=dict(color=CGPA_COLORS[lbl],size=9,line=dict(color='white',width=1.5),opacity=0.75),
-                    name=lbl,
-                    hovertemplate=(f'<b>{lbl}</b><br>Social Media: %{{customdata[0]:.1f}} hrs/day<br>'
-                                   'Coursework: %{customdata[1]}%<br>Study Hours: %{customdata[2]:.1f} hrs/day<extra></extra>'),
-                    customdata=sub[['social_media_hours','coursework_score','study_hours_daily']].values
-                ))
-            z = np.polyfit(df['social_media_hours'], df['coursework_score'], 1)
-            p_fit = np.poly1d(z)
-            x_rng = np.linspace(df['social_media_hours'].min()-0.3, df['social_media_hours'].max()+0.3, 100)
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 12px 12px 0 0;
+            padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+            margin: 0.75rem 0 0 0;
+            border: 1.5px solid #CBD5E1;
+            border-bottom: none;
+        ">
+            <div style="
+                font-size: 1rem; 
+                font-weight: 600; 
+                color: #1E293B;
+                margin-bottom: 16px; 
+                letter-spacing: -0.01em; 
+                padding-bottom: 10px;
+                border-bottom: 1px solid #CBD5E1;
+            ">📱 Social Media vs Coursework Score</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        np.random.seed(42)
+        plot_df = df[['social_media_hours','coursework_score','cgpa_label','study_hours_daily']].copy()
+        plot_df['sm_j'] = plot_df['social_media_hours'] + np.random.normal(0,0.1,len(plot_df))
+        plot_df['cw_j'] = plot_df['coursework_score']   + np.random.normal(0,1.2,len(plot_df))
+        fig_scatter = go.Figure()
+        for lbl in CGPA_ORDER:
+            sub = plot_df[plot_df['cgpa_label']==lbl]
             fig_scatter.add_trace(go.Scatter(
-                x=x_rng, y=p_fit(x_rng), mode='lines',
-                line=dict(color='rgba(220,50,50,0.45)',width=2.5,dash='dash'),
-                name=f'Trend (slope: {z[0]:.2f})', hoverinfo='skip'
+                x=sub['sm_j'], y=sub['cw_j'], mode='markers',
+                marker=dict(color=CGPA_COLORS[lbl],size=9,line=dict(color='white',width=1.5),opacity=0.75),
+                name=lbl,
+                hovertemplate=(f'<b>{lbl}</b><br>Social Media: %{{customdata[0]:.1f}} hrs/day<br>'
+                               'Coursework: %{customdata[1]}%<br>Study Hours: %{customdata[2]:.1f} hrs/day<extra></extra>'),
+                customdata=sub[['social_media_hours','coursework_score','study_hours_daily']].values
             ))
-            fig_scatter.update_layout(
-                xaxis=dict(title=dict(text='<b>Social Media Hours/Day</b>',font=dict(size=11,color='#1A237E')),
-                           showgrid=True,gridwidth=1.5,gridcolor='rgba(100,100,100,0.5)',
-                           tickvals=[0.5,1.5,3.5,5.0],ticktext=['< 1 hr','1-2 hrs','3-4 hrs','5+ hrs'],
-                           tickfont=dict(size=10,color='#2C3E50')),
-                yaxis=dict(title=dict(text='<b>Coursework Score (%)</b>',font=dict(size=11,color='#1A237E')),
-                           showgrid=True,gridwidth=1.5,gridcolor='rgba(100,100,100,0.5)',
-                           tickfont=dict(size=10,color='#2C3E50')),
-                plot_bgcolor='rgba(250,250,250,0.5)',paper_bgcolor='rgba(0,0,0,0)',
-                hovermode='closest',hoverlabel=dict(bgcolor='white',font_size=11),
-                legend=dict(orientation='h',yanchor='bottom',y=-0.40,xanchor='center',x=0.5,
-                            bgcolor='rgba(255,255,255,0.9)',bordercolor='#E2E8F0',borderwidth=1,font=dict(size=10)),
-                height=BOT_H, margin=dict(t=15,b=10,l=60,r=15)
-            )
-            st.plotly_chart(fig_scatter, use_container_width=True, key="chart_scatter")
-            explore_button("explore_scatter", "Performance Analysis")
+        z = np.polyfit(df['social_media_hours'], df['coursework_score'], 1)
+        p_fit = np.poly1d(z)
+        x_rng = np.linspace(df['social_media_hours'].min()-0.3, df['social_media_hours'].max()+0.3, 100)
+        fig_scatter.add_trace(go.Scatter(
+            x=x_rng, y=p_fit(x_rng), mode='lines',
+            line=dict(color='rgba(220,50,50,0.45)',width=2.5,dash='dash'),
+            name=f'Trend (slope: {z[0]:.2f})', hoverinfo='skip'
+        ))
+        fig_scatter.update_layout(
+            xaxis=dict(title=dict(text='<b>Social Media Hours/Day</b>',font=dict(size=11,color='#1A237E')),
+                       showgrid=True,gridwidth=1.5,gridcolor='rgba(100,100,100,0.5)',
+                       tickvals=[0.5,1.5,3.5,5.0],ticktext=['< 1 hr','1-2 hrs','3-4 hrs','5+ hrs'],
+                       tickfont=dict(size=10,color='#2C3E50')),
+            yaxis=dict(title=dict(text='<b>Coursework Score (%)</b>',font=dict(size=11,color='#1A237E')),
+                       showgrid=True,gridwidth=1.5,gridcolor='rgba(100,100,100,0.5)',
+                       tickfont=dict(size=10,color='#2C3E50')),
+            plot_bgcolor='rgba(250,250,250,0.5)',paper_bgcolor='rgba(0,0,0,0)',
+            hovermode='closest',hoverlabel=dict(bgcolor='white',font_size=11),
+            legend=dict(orientation='h',yanchor='bottom',y=-0.40,xanchor='center',x=0.5,
+                        bgcolor='rgba(255,255,255,0.9)',bordercolor='#E2E8F0',borderwidth=1,font=dict(size=10)),
+            height=BOT_H, margin=dict(t=15,b=10,l=60,r=15)
+        )
+        st.plotly_chart(fig_scatter, use_container_width=True, key="chart_scatter")
+        
+        explore_button("explore_scatter", "Performance Analysis")
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 0 0 12px 12px;
+            padding: 0 1.5rem 1.25rem 1.5rem;
+            margin: 0 0 0.75rem 0;
+            border: 1.5px solid #CBD5E1;
+            border-top: none;
+        "></div>
+        """, unsafe_allow_html=True)
 
     # Chart 5 — 3D ─────────────────────────────────────────────────────────────
     with r2c2:
-            st.markdown('<div class="chart-card-title">🌐 Study × Social Media × Coursework (Optional for data enthusiasts!)</div>', unsafe_allow_html=True)
-            np.random.seed(42)
-            s3d = df[['study_hours_daily','social_media_hours','coursework_score',
-                       'cgpa_label','cgpa','time_management','note_taking']].copy()
-            s3d['x'] = s3d['study_hours_daily']  + np.random.normal(0,0.15,len(df))
-            s3d['y'] = s3d['social_media_hours']  + np.random.normal(0,0.15,len(df))
-            s3d['z'] = s3d['coursework_score']    + np.random.normal(0,1.5,len(df))
-            symbols  = ['diamond','square','circle']
-            fig_3d   = go.Figure()
-            for lbl, sym in zip(CGPA_ORDER, symbols):
-                sub = s3d[s3d['cgpa_label']==lbl]
-                fig_3d.add_trace(go.Scatter3d(
-                    x=sub['x'], y=sub['y'], z=sub['z'], mode='markers',
-                    marker=dict(color=CGPA_COLORS[lbl],size=6,symbol=sym,
-                                line=dict(color='white',width=0.8),opacity=0.85),
-                    name=lbl,
-                    hovertemplate=(f'<b>{lbl}</b><br>Daily Study: %{{customdata[0]:.1f}} hrs<br>'
-                                   'Social Media: %{customdata[1]:.1f} hrs<br>Coursework: %{customdata[2]}%<br>'
-                                   'Time Mgmt: %{customdata[3]}<br>Note Taking: %{customdata[4]}<extra></extra>'),
-                    customdata=sub[['study_hours_daily','social_media_hours',
-                                    'coursework_score','time_management','note_taking']].values
-                ))
-            ax = dict(backgroundcolor='rgba(230,240,250,0.8)',gridcolor='rgba(100,100,100,0.5)',
-                      gridwidth=1.5,showline=True,linecolor='#1A237E',linewidth=1,
-                      mirror=True,showbackground=True)
-            fig_3d.update_layout(
-                scene=dict(
-                    xaxis=dict(title=dict(text='Study Hrs',   font=dict(size=9)), **ax),
-                    yaxis=dict(title=dict(text='Social Media',font=dict(size=9)), **ax),
-                    zaxis=dict(title=dict(text='Coursework %',font=dict(size=9)), **ax),
-                    camera=dict(eye=dict(x=1.65,y=1.65,z=1.1))
-                ),
-                paper_bgcolor='rgba(0,0,0,0)',
-                legend=dict(title=dict(text='<b>CGPA</b>',font=dict(size=10,color='#1A237E')),
-                            orientation='v',yanchor='top',y=0.97,xanchor='right',x=0.99,
-                            bgcolor='rgba(255,255,255,0.92)',bordercolor='#C8D6E8',borderwidth=1,font=dict(size=10)),
-                height=BOT_H, hoverlabel=dict(bgcolor='white',font_size=11),
-                margin=dict(t=20,b=10,l=0,r=0)
-            )
-            st.plotly_chart(fig_3d, use_container_width=True, key="chart_3d")
-            explore_button("explore_3d", "Performance Analysis")
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 12px 12px 0 0;
+            padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+            margin: 0.75rem 0 0 0;
+            border: 1.5px solid #CBD5E1;
+            border-bottom: none;
+        ">
+            <div style="
+                font-size: 1rem; 
+                font-weight: 600; 
+                color: #1E293B;
+                margin-bottom: 16px; 
+                letter-spacing: -0.01em; 
+                padding-bottom: 10px;
+                border-bottom: 1px solid #CBD5E1;
+            ">🌐 Study × Social Media × Coursework (Optional)</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        np.random.seed(42)
+        s3d = df[['study_hours_daily','social_media_hours','coursework_score',
+                   'cgpa_label','cgpa','time_management','note_taking']].copy()
+        s3d['x'] = s3d['study_hours_daily']  + np.random.normal(0,0.15,len(df))
+        s3d['y'] = s3d['social_media_hours']  + np.random.normal(0,0.15,len(df))
+        s3d['z'] = s3d['coursework_score']    + np.random.normal(0,1.5,len(df))
+        symbols  = ['diamond','square','circle']
+        fig_3d   = go.Figure()
+        for lbl, sym in zip(CGPA_ORDER, symbols):
+            sub = s3d[s3d['cgpa_label']==lbl]
+            fig_3d.add_trace(go.Scatter3d(
+                x=sub['x'], y=sub['y'], z=sub['z'], mode='markers',
+                marker=dict(color=CGPA_COLORS[lbl],size=6,symbol=sym,
+                            line=dict(color='white',width=0.8),opacity=0.85),
+                name=lbl,
+                hovertemplate=(f'<b>{lbl}</b><br>Daily Study: %{{customdata[0]:.1f}} hrs<br>'
+                               'Social Media: %{customdata[1]:.1f} hrs<br>Coursework: %{customdata[2]}%<br>'
+                               'Time Mgmt: %{customdata[3]}<br>Note Taking: %{customdata[4]}<extra></extra>'),
+                customdata=sub[['study_hours_daily','social_media_hours',
+                                'coursework_score','time_management','note_taking']].values
+            ))
+        ax = dict(backgroundcolor='rgba(230,240,250,0.8)',gridcolor='rgba(100,100,100,0.5)',
+                  gridwidth=1.5,showline=True,linecolor='#1A237E',linewidth=1,
+                  mirror=True,showbackground=True)
+        fig_3d.update_layout(
+            scene=dict(
+                xaxis=dict(title=dict(text='Study Hrs',   font=dict(size=9)), **ax),
+                yaxis=dict(title=dict(text='Social Media',font=dict(size=9)), **ax),
+                zaxis=dict(title=dict(text='Coursework %',font=dict(size=9)), **ax),
+                camera=dict(eye=dict(x=1.65,y=1.65,z=1.1))
+            ),
+            paper_bgcolor='rgba(0,0,0,0)',
+            legend=dict(title=dict(text='<b>CGPA</b>',font=dict(size=10,color='#1A237E')),
+                        orientation='v',yanchor='top',y=0.97,xanchor='right',x=0.99,
+                        bgcolor='rgba(255,255,255,0.92)',bordercolor='#C8D6E8',borderwidth=1,font=dict(size=10)),
+            height=BOT_H, hoverlabel=dict(bgcolor='white',font_size=11),
+            margin=dict(t=20,b=10,l=0,r=0)
+        )
+        st.plotly_chart(fig_3d, use_container_width=True, key="chart_3d")
+        
+        explore_button("explore_3d", "Performance Analysis")
+        st.markdown("""
+        <div style="
+            background: #FFFFFF;
+            border-radius: 0 0 12px 12px;
+            padding: 0 1.5rem 1.25rem 1.5rem;
+            margin: 0 0 0.75rem 0;
+            border: 1.5px solid #CBD5E1;
+            border-top: none;
+        "></div>
+        """, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
