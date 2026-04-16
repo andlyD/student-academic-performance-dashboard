@@ -799,4 +799,59 @@ def main():
     </body>
     </html>"""
 
-    components.html(APP_HTML, height=4100, scrolling=True)
+    # Add dynamic height script with initial height
+    APP_HTML_WITH_AUTO_HEIGHT = APP_HTML + """
+    <script>
+    (function() {
+        function sendHeight() {
+            const height = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+            window.parent.postMessage({
+                type: "streamlit:setFrameHeight",
+                height: height + 50
+            }, "*");
+        }
+        
+        // Send height immediately and on load
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', function() {
+                setTimeout(sendHeight, 50);
+                setTimeout(sendHeight, 200);
+            });
+        } else {
+            setTimeout(sendHeight, 50);
+            setTimeout(sendHeight, 200);
+        }
+        
+        window.addEventListener('load', sendHeight);
+        
+        // Watch for content changes
+        const observer = new MutationObserver(function() {
+            sendHeight();
+        });
+        observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+        
+        // Override showResults to trigger height update
+        const originalShowResults = window.showResults;
+        window.showResults = function() {
+            if (originalShowResults) originalShowResults();
+            setTimeout(sendHeight, 100);
+            setTimeout(sendHeight, 300);
+            setTimeout(sendHeight, 600);
+        };
+        
+        // Also trigger on any click that might change content
+        document.addEventListener('click', function() {
+            setTimeout(sendHeight, 100);
+        });
+    })();
+    </script>
+    """
+
+    # Use a reasonable starting height (shows most content, then expands)
+    components.html(APP_HTML_WITH_AUTO_HEIGHT, height=2800, scrolling=True)
