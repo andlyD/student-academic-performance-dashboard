@@ -96,29 +96,6 @@ def inject_global_styles():
         padding-bottom: 1.5rem !important;
     }
 
-    /* Make the toggle arrow always visible */
-    [data-testid="collapsedControl"] {
-        position: fixed !important;
-        top: 14px !important;
-        left: 14px !important;
-        z-index: 99999 !important;
-        display: block !important;
-    }
-
-    [data-testid="collapsedControl"] button {
-        width: 42px !important;
-        height: 42px !important;
-        border-radius: 12px !important;
-        border: none !important;
-        background: #4b1fcf !important;
-        color: #ffffff !important;
-        box-shadow: 0 6px 18px rgba(75, 31, 207, 0.30) !important;
-    }
-
-    [data-testid="collapsedControl"] button:hover {
-        background: #3d18b4 !important;
-    }
-
     /* Fixed sidebar text colors */
     [data-testid="stSidebar"] {
         color: #FFFFFF !important;
@@ -277,23 +254,24 @@ def inject_global_styles():
     CHART CARD - SINGLE CLEAN BORDER AROUND ENTIRE VISUALIZATION
     ══════════════════════════════════════════════════════ */
     [data-testid="stVerticalBlockBorderWrapper"] {
-        border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
-        border-radius: 14px !important;
-        padding: 1.25rem 1.25rem 1rem 1.25rem !important;
-        background: #FFFFFF !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-        margin-bottom: 1rem !important;
-        transition: box-shadow 0.2s ease;
-    }
-    [data-testid="stVerticalBlockBorderWrapper"]:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-    }
-    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
         border: none !important;
         border-radius: 0 !important;
         padding: 0 !important;
         background: transparent !important;
         box-shadow: none !important;
+        margin-bottom: 1rem !important;
+    }
+    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
+        border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
+        border-radius: 14px !important;
+        padding: 1.25rem 1.25rem 1rem 1.25rem !important;
+        background: #FFFFFF !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        margin-bottom: 0.25rem !important;
+        transition: box-shadow 0.2s ease;
+    }
+    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"]:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
     }
 
     .chart-card-title {
