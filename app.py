@@ -96,6 +96,11 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
     width: 100% !important; min-height: 48px !important; padding: 0.82rem 1rem !important;
     border-radius: 14px !important; font-size: 0.93rem !important; font-weight: 500 !important;
     color: rgba(255,255,255,0.92) !important; background: transparent !important;
+    [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] p,
+    [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] span,
+    [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] div {
+        color: rgba(255,255,255,0.92) !important;
+    }
     border: none !important; box-shadow: none !important; cursor: pointer !important;
     text-align: left !important; margin-bottom: 0.38rem !important; transition: all 0.2s ease !important;
 }
