@@ -265,13 +265,17 @@ def inject_global_styles():
     [data-testid="stVerticalBlockBorderWrapper"]:hover {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
     }
-
-    .chart-card-title {
-        font-size: 0.97rem;
-        font-weight: 600;
-        color: #1E293B;
-        margin-bottom: 12px;
-        letter-spacing: -0.01em;
+    /* Override any inner borders */
+    [data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlock"] {
+        border: none !important;
+        box-shadow: none !important;
+    }
+    .chart-card-title { 
+        font-size: 0.97rem; 
+        font-weight: 600; 
+        color: #1E293B; 
+        margin-bottom: 12px; 
+        letter-spacing: -0.01em; 
     }
 
     /* ══════════════════════════════════════════════════════
