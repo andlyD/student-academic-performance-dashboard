@@ -254,32 +254,30 @@ def inject_global_styles():
     CHART CARD - SINGLE CLEAN BORDER AROUND ENTIRE VISUALIZATION
     ══════════════════════════════════════════════════════ */
     [data-testid="stVerticalBlockBorderWrapper"] {
+        border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
+        border-radius: 14px !important;
+        padding: 1.25rem 1.25rem 1rem 1.25rem !important;
+        background: #FFFFFF !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        margin-bottom: 1.5rem !important;
+        transition: box-shadow 0.2s ease;
+    }
+    [data-testid="stVerticalBlockBorderWrapper"]:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    }
+    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
         border: none !important;
         border-radius: 0 !important;
         padding: 0 !important;
         background: transparent !important;
         box-shadow: none !important;
-        margin-bottom: 1rem !important;
     }
-    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"] {
-        border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
-        border-radius: 14px !important;
-        padding: 1.25rem 1.25rem 1rem 1.25rem !important;
-        background: #FFFFFF !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-        margin-bottom: 0.25rem !important;
-        transition: box-shadow 0.2s ease;
-    }
-    [data-testid="stVerticalBlockBorderWrapper"] > [data-testid="stVerticalBlock"]:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-    }
-
-    .chart-card-title {
-        font-size: 0.97rem;
-        font-weight: 600;
-        color: #1E293B;
-        margin-bottom: 12px;
-        letter-spacing: -0.01em;
+    .chart-card-title { 
+        font-size: 0.97rem; 
+        font-weight: 600; 
+        color: #1E293B; 
+        margin-bottom: 12px; 
+        letter-spacing: -0.01em; 
     }
 
     /* ══════════════════════════════════════════════════════
