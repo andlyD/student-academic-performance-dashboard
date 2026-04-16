@@ -142,12 +142,15 @@ div[data-testid="column"] {
     border-radius: 14px !important;
     padding: 1.25rem 1.25rem 1rem 1.25rem !important;
     background: #FFFFFF !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    outline: 1px solid rgba(0, 0, 0, 0.08) !important;
+    outline-offset: -1px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.05) !important;
     margin: 0.5rem !important;
     transition: box-shadow 0.25s ease, transform 0.2s ease;
 }
 div[data-testid="column"]:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.10) !important;
+    outline: 1px solid rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08) !important;
     transform: translateY(-2px);
 }
 .chart-card-title { 
