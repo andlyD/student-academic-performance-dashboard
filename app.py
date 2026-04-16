@@ -150,6 +150,11 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 [data-testid="stVerticalBlockBorderWrapper"]:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
 }
+/* Override any inner borders */
+[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlock"] {
+    border: none !important;
+    box-shadow: none !important;
+}
 .chart-card-title { 
     font-size: 0.97rem; 
     font-weight: 600; 
