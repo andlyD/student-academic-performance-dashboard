@@ -799,36 +799,56 @@ def main():
     </body>
     </html>"""
 
-    # Add dynamic height script with initial height
+    # Add dynamic height script with smarter initial height calculation
     APP_HTML_WITH_AUTO_HEIGHT = APP_HTML + """
     <script>
     (function() {
         function sendHeight() {
-            const height = Math.max(
-                document.body.scrollHeight,
-                document.body.offsetHeight,
-                document.documentElement.clientHeight,
-                document.documentElement.scrollHeight,
-                document.documentElement.offsetHeight
-            );
+            // Get the actual content height (excluding hidden results section)
+            const quizHeight = document.getElementById('quiz-cont')?.scrollHeight || 0;
+            const headerHeight = document.getElementById('hdr')?.scrollHeight || 0;
+            const infoHeight = document.querySelector('.info-cards')?.scrollHeight || 0;
+            const progressHeight = document.getElementById('prog-wrap')?.scrollHeight || 0;
+            const buttonHeight = document.getElementById('sub-btn')?.scrollHeight || 0;
+            
+            // Calculate total visible height (quiz mode)
+            let visibleHeight = headerHeight + infoHeight + progressHeight + quizHeight + buttonHeight + 100;
+            
+            // If results are visible, add their height
+            const resultsDiv = document.getElementById('results-section');
+            const divider = document.getElementById('results-divider');
+            if (resultsDiv && resultsDiv.style.display !== 'none') {
+                visibleHeight = Math.max(
+                    document.body.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.scrollHeight,
+                    document.documentElement.offsetHeight
+                );
+            }
+            
             window.parent.postMessage({
                 type: "streamlit:setFrameHeight",
-                height: height + 50
+                height: visibleHeight + 80
             }, "*");
         }
         
-        // Send height immediately and on load
-        if (document.readyState === 'loading') {
-            window.addEventListener('DOMContentLoaded', function() {
-                setTimeout(sendHeight, 50);
-                setTimeout(sendHeight, 200);
-            });
-        } else {
+        // Send height multiple times to ensure accuracy
+        function scheduleHeightUpdates() {
+            sendHeight();
             setTimeout(sendHeight, 50);
-            setTimeout(sendHeight, 200);
+            setTimeout(sendHeight, 150);
+            setTimeout(sendHeight, 300);
+            setTimeout(sendHeight, 500);
         }
         
-        window.addEventListener('load', sendHeight);
+        // Initial height calculation
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', scheduleHeightUpdates);
+        } else {
+            scheduleHeightUpdates();
+        }
+        
+        window.addEventListener('load', scheduleHeightUpdates);
         
         // Watch for content changes
         const observer = new MutationObserver(function() {
@@ -843,15 +863,25 @@ def main():
             setTimeout(sendHeight, 100);
             setTimeout(sendHeight, 300);
             setTimeout(sendHeight, 600);
+            setTimeout(sendHeight, 1000);
         };
         
-        // Also trigger on any click that might change content
+        // Trigger on any click
         document.addEventListener('click', function() {
             setTimeout(sendHeight, 100);
         });
+        
+        // Also trigger when answers are selected
+        const originalPick = window.pick;
+        if (originalPick) {
+            window.pick = function() {
+                originalPick.apply(this, arguments);
+                setTimeout(sendHeight, 50);
+            };
+        }
     })();
     </script>
     """
 
-    # Use a reasonable starting height (shows most content, then expands)
-    components.html(APP_HTML_WITH_AUTO_HEIGHT, height=2800, scrolling=True)
+    # Use a much smaller starting height - the script will expand it
+    components.html(APP_HTML_WITH_AUTO_HEIGHT, height=1200, scrolling=True)
