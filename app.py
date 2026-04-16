@@ -70,14 +70,7 @@ header, [data-testid="stHeader"] {
     padding-right: 2rem !important;
 }
 
-[data-testid="stSidebar"],
-[data-testid="stSidebar"] *,
-[data-testid="stSidebar"] p,
-[data-testid="stSidebar"] span,
-[data-testid="stSidebar"] div,
-[data-testid="stSidebar"] label {
-    color: #FFFFFF !important;
-}
+[data-testid="stSidebar"] * { color: #FFFFFF !important; }
 [data-testid="stSidebar"] .stMarkdown { color: #FFFFFF !important; }
 [data-testid="stSidebarNav"],
 section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display: none !important; }
@@ -99,56 +92,24 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
     letter-spacing: 0.08em; text-transform: uppercase; margin: 0.55rem 0 0.65rem 0.3rem;
 }
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    width: 100% !important;
-    min-height: 48px !important;
-    padding: 0.82rem 1rem !important;
-    border-radius: 14px !important;
-    font-size: 0.93rem !important;
-    font-weight: 600 !important;
-    color: #FFFFFF !important;
-    background: rgba(255,255,255,0.15) !important;
-    border: 1px solid rgba(255,255,255,0.30) !important;
-    box-shadow: none !important;
-    cursor: pointer !important;
-    text-align: left !important;
-    margin-bottom: 0.38rem !important;
-    transition: all 0.2s ease !important;
+    display: flex !important; align-items: center !important; justify-content: flex-start !important;
+    width: 100% !important; min-height: 48px !important; padding: 0.82rem 1rem !important;
+    border-radius: 14px !important; font-size: 0.93rem !important; font-weight: 500 !important;
+    color: rgba(255,255,255,0.92) !important; background: transparent !important;
+    border: none !important; box-shadow: none !important; cursor: pointer !important;
+    text-align: left !important; margin-bottom: 0.38rem !important; transition: all 0.2s ease !important;
 }
-
-/* Force white on ALL child elements — this is what Streamlit Cloud overrides */
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] *,
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] p,
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] span,
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] div {
-    color: #FFFFFF !important;
-}
-
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"]:hover {
-    background: rgba(255,255,255,0.28) !important;
-    color: #FFFFFF !important;
-    transform: translateX(3px) !important;
+    background: rgba(255,255,255,0.12) !important; color: #FFFFFF !important; transform: translateX(3px) !important;
 }
-
-/* Active/selected button */
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active {
-    background: #FFFFFF !important;
-    color: #2e167e !important;
-    font-weight: 700 !important;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.14) !important;
-    transform: translateX(2px) !important;
-    border: none !important;
+    background: #FFFFFF !important; color: #2e167e !important; font-weight: 700 !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.14) !important; transform: translateX(2px) !important;
 }
-
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active *,
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active p,
 [data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active span,
-[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active div {
-    color: #2e167e !important;
-}
-            
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"].nav-btn-active div { color: #2e167e !important; }
+
 .jobie-sidebar-footer {
     margin-top: 1.35rem; padding: 0.95rem 0.9rem; border-radius: 16px;
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08);
@@ -202,7 +163,13 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNavItems"] { display:
 #  SIDEBAR NAVIGATION
 # ══════════════════════════════════════════════════════════════════════════════
 with st.sidebar:
-    st.markdown('<div class="sidebar-section-label">Main Menu</div>', unsafe_allow_html=True)
+    
+    st.markdown(
+        """
+        <div class="sidebar-section-label">Main Menu</div>
+        """,
+        unsafe_allow_html=True
+    )
 
     _NAV = [
         ("🏠", "Main Dashboard", "Dashboard"),
@@ -212,65 +179,45 @@ with st.sidebar:
     ]
 
     for icon, label, page_key in _NAV:
-        is_active = st.session_state.current_page == page_key
-        active_style = """
-            background: #FFFFFF !important;
-            color: #2e167e !important;
-            font-weight: 700 !important;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.14) !important;
-        """ if is_active else """
-            background: rgba(255,255,255,0.15) !important;
-            color: #FFFFFF !important;
-            font-weight: 600 !important;
-            border: 1px solid rgba(255,255,255,0.30) !important;
-        """
-        text_color = "#2e167e" if is_active else "#FFFFFF"
-
-        if st.button(
-            f"{icon}  {label}",
-            key=f"nav_btn_{page_key}",
-            use_container_width=True
-        ):
+        if st.button(f"{icon}  {label}", key=f"nav_btn_{page_key}", use_container_width=True):
             st.session_state.current_page = page_key
             st.rerun()
 
-        # Immediately override the just-rendered button's style via JS
-        components.html(f"""
-        <script>
-        (function() {{
-            function styleBtn() {{
-                var sidebar = window.parent.document.querySelector('[data-testid="stSidebar"]');
-                if (!sidebar) {{ setTimeout(styleBtn, 100); return; }}
-                var buttons = sidebar.querySelectorAll('[data-testid="stBaseButton-secondary"]');
-                buttons.forEach(function(btn) {{
-                    if (btn.textContent.trim().indexOf("{label}") !== -1) {{
-                        btn.style.cssText = `
-                            display: flex !important;
-                            align-items: center !important;
-                            justify-content: flex-start !important;
-                            width: 100% !important;
-                            min-height: 48px !important;
-                            padding: 0.82rem 1rem !important;
-                            border-radius: 14px !important;
-                            font-size: 0.93rem !important;
-                            cursor: pointer !important;
-                            margin-bottom: 0.38rem !important;
-                            transition: all 0.2s ease !important;
-                            {active_style}
-                        `;
-                        var allChildren = btn.querySelectorAll('*');
-                        allChildren.forEach(function(el) {{
-                            el.style.color = '{text_color}';
-                        }});
-                    }}
-                }});
-            }}
-            setTimeout(styleBtn, 200);
-        }})();
-        </script>
-        """, height=0, scrolling=False)
+    _label_map = {
+        "Main Dashboard": "Main Dashboard",
+        "Overview": "Overview",
+        "Performance Analysis": "Performance Analysis",
+        "Know Yourself": "Know Yourself",
+    }
 
-    # Footer
+    active_label = _label_map.get(st.session_state.current_page, st.session_state.current_page)
+
+    components.html(f"""
+    <script>
+    (function applyActiveNav() {{
+        var sidebar = window.parent.document.querySelector('[data-testid="stSidebar"]');
+        if (!sidebar) {{
+            setTimeout(applyActiveNav, 120);
+            return;
+        }}
+
+        var buttons = sidebar.querySelectorAll('[data-testid="stBaseButton-secondary"]');
+        if (!buttons.length) {{
+            setTimeout(applyActiveNav, 120);
+            return;
+        }}
+
+        buttons.forEach(function(btn) {{
+            btn.classList.remove('nav-btn-active');
+            if (btn.textContent.indexOf("{active_label}") !== -1) {{
+                btn.classList.add('nav-btn-active');
+            }}
+        }});
+    }})();
+    </script>
+    """, height=0, scrolling=False)
+
+    # footer
     components.html("""
     <style>
         body { margin: 0; padding: 0; background: transparent; }
@@ -282,19 +229,37 @@ with st.sidebar:
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .footer-title {
-            font-size: 0.68rem; font-weight: 800;
-            color: rgba(255,255,255,0.6); letter-spacing: 0.15em;
-            text-transform: uppercase; margin-bottom: 0.8rem;
-            font-family: sans-serif; text-align: center;
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            font-family: sans-serif;
+            text-align: center;
         }
         .dev-card {
-            background: rgba(255,255,255,0.10); border-radius: 10px;
-            padding: 0.55rem 0.85rem; margin-bottom: 0.45rem;
+            background: rgba(255,255,255,0.10);
+            border-radius: 10px;
+            padding: 0.55rem 0.85rem;
+            margin-bottom: 0.45rem;
             border-left: 3px solid rgba(255,255,255,0.35);
         }
         .dev-card:last-child { margin-bottom: 0; }
-        .dev-name { font-size: 0.80rem; font-weight: 700; color: #FFFFFF; font-family: sans-serif; line-height: 1.3; }
-        .dev-id   { font-size: 0.66rem; color: rgba(255,255,255,0.50); margin-top: 2px; font-family: sans-serif; }
+        .dev-name {
+            font-size: 0.80rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            font-family: sans-serif;
+            line-height: 1.3;
+        }
+        .dev-id {
+            font-size: 0.66rem;
+            color: rgba(255,255,255,0.50);
+            margin-top: 2px;
+            font-family: sans-serif;
+            letter-spacing: 0.03em;
+        }
     </style>
     <div class="footer-wrap">
         <div class="footer-title">👨‍💻 Dashboard Developers</div>
