@@ -316,7 +316,7 @@ with st.sidebar:
             <div class="dev-id">Student ID: 0137513</div>
         </div>
     </div>
-    """, height=260)  # Increased height from 230 to 260
+    """, height=300)
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  MAIN PAGE RENDERING
